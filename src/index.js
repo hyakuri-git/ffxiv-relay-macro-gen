@@ -1,4 +1,4 @@
-const { FlexLayout, QMainWindow, QCheckBox, QGroupBox, QTextEdit, QPushButton, QClipboard, QApplication, QClipboardMode } = require('@nodegui/nodegui');
+const { FlexLayout, QMainWindow, QCheckBox, QGroupBox, QTextEdit, QPushButton, QClipboard, QApplication, QClipboardMode, QWidget, QLabel } = require('@nodegui/nodegui');
 
 
 const chatOptions = [
@@ -22,50 +22,168 @@ const chatOptions = [
 const win = new QMainWindow();
 win.setWindowTitle('FFXIV Relay Macro Generator')
 
-const groupBoxLayout = new FlexLayout();
-const groupBox = new QGroupBox();
-groupBox.setLayout(groupBoxLayout);
+const rootView = new QWidget();
+const rootViewLayout = new FlexLayout();
+rootView.setLayout(rootViewLayout);
+
+const chatOptionsView = new QWidget();
+const chatOptionsViewLayout = new FlexLayout();
+chatOptionsView.setObjectName('chatOptionsView');
+chatOptionsView.setLayout(chatOptionsViewLayout);
+
+const chatSelectLabel = new QLabel();
+chatSelectLabel.setText('Select chats to include in the macro');
+chatSelectLabel.setObjectName('chatSelectLabel');
+
+const chatCheckBoxView = new QWidget();
+const chatCheckBoxViewLayout = new FlexLayout();
+chatCheckBoxView.setObjectName('chatCheckBoxView');
+chatCheckBoxView.setLayout(chatCheckBoxViewLayout);
+
+const mainChatCheckBoxView = new QWidget();
+const mainChatCheckBoxViewLayout = new FlexLayout();
+mainChatCheckBoxView.setObjectName('mainChatCheckBoxView');
+mainChatCheckBoxView.setLayout(mainChatCheckBoxViewLayout);
+const lsChatCheckBoxView = new QWidget();
+const lsChatCheckBoxViewLayout = new FlexLayout();
+lsChatCheckBoxView.setObjectName('lsChatCheckBoxView');
+lsChatCheckBoxView.setLayout(lsChatCheckBoxViewLayout);
+const cwlsChatCheckBoxView = new QWidget();
+const cwlsChatCheckBoxViewLayout = new FlexLayout();
+cwlsChatCheckBoxView.setObjectName('cwlsChatCheckBoxView');
+cwlsChatCheckBoxView.setLayout(cwlsChatCheckBoxViewLayout);
 
 for (option of chatOptions) {
     const checkbox = new QCheckBox();
     checkbox.setText(option.label);
     checkbox.setObjectName(option.short);
-    groupBoxLayout.addWidget(checkbox);
+
+    if (option.short.startsWith('l')) {
+        lsChatCheckBoxViewLayout.addWidget(checkbox);
+    } else if (option.short.startsWith('cwl')) {
+        cwlsChatCheckBoxViewLayout.addWidget(checkbox);
+    } else {
+        mainChatCheckBoxViewLayout.addWidget(checkbox);
+    }
 }
 
-const input = new QTextEdit();
-input.setObjectName('InputTextBox');
-const output = new QTextEdit();
-output.setAcceptRichText(true);
-output.setReadOnly(true);
+const macroBoxView = new QWidget();
+const macroBoxViewLayout = new FlexLayout();
+macroBoxView.setObjectName('macroBoxView');
+macroBoxView.setLayout(macroBoxViewLayout);
+
+const inputBoxView = new QWidget();
+const inputBoxViewLayout = new FlexLayout();
+inputBoxView.setObjectName('inputBoxView');
+inputBoxView.setLayout(inputBoxViewLayout);
+
+const inputTextEdit = new QTextEdit();
+inputTextEdit.setObjectName('inputTextEdit');
+inputTextEdit.setPlaceholderText('Type something here and click Generate!');
 
 const generateButton = new QPushButton();
-const copyButton = new QPushButton();
+generateButton.setObjectName('generateButton');
 generateButton.setText('Generate Macro');
+
+const outputBoxView = new QWidget();
+const outputBoxViewLayout = new FlexLayout();
+outputBoxView.setObjectName('outputBoxView');
+outputBoxView.setLayout(outputBoxViewLayout);
+
+const outputTextEdit = new QTextEdit();
+outputTextEdit.setObjectName('outputTextEdit');
+outputTextEdit.setAcceptRichText(true);
+outputTextEdit.setReadOnly(true);
+
+const copyButton = new QPushButton();
+copyButton.setObjectName('generateButton');
+copyButton.setText('Copy Macro');
+
 generateButton.addEventListener('clicked', () => {
-    const input = groupBox.children().find(c => c.objectName() === 'InputTextBox');
+    const children = [...mainChatCheckBoxView.children(), ...lsChatCheckBoxView.children(), ...cwlsChatCheckBoxView.children()];
     let outputText = '';
-    for (child of groupBox.children()) {
+    for (child of children) {
         if (child instanceof QCheckBox && child.isChecked()) {
-            outputText = outputText + `/${child.objectName()} ${input.toPlainText()}\n`
+            outputText = outputText + `/${child.objectName()} ${inputTextEdit.toPlainText()}\n`
         }
     }
-    output.setPlainText(outputText);
+    outputTextEdit.setPlainText(outputText);
     copyButton.setText('Copy Macro');
 });
 
-copyButton.setText('Copy Macro');
 copyButton.addEventListener('clicked', () => {
-    QApplication.clipboard().setText(output.toPlainText(), QClipboardMode.Clipboard);
+    QApplication.clipboard().setText(outputTextEdit.toPlainText(), QClipboardMode.Clipboard);
     copyButton.setText('Copied!');
     setTimeout(() => { copyButton.setText('Copy Macro') }, 3000);
 });
 
-groupBoxLayout.addWidget(input);
-groupBoxLayout.addWidget(generateButton);
-groupBoxLayout.addWidget(output);
-groupBoxLayout.addWidget(copyButton);
+chatOptionsViewLayout.addWidget(chatSelectLabel);
+chatCheckBoxViewLayout.addWidget(mainChatCheckBoxView);
+chatCheckBoxViewLayout.addWidget(lsChatCheckBoxView);
+chatCheckBoxViewLayout.addWidget(cwlsChatCheckBoxView);
+chatOptionsViewLayout.addWidget(chatCheckBoxView);
 
-win.setCentralWidget(groupBox);
+inputBoxViewLayout.addWidget(inputTextEdit);
+inputBoxViewLayout.addWidget(generateButton);
+
+outputBoxViewLayout.addWidget(outputTextEdit);
+outputBoxViewLayout.addWidget(copyButton);
+
+macroBoxViewLayout.addWidget(inputBoxView);
+macroBoxViewLayout.addWidget(outputBoxView);
+
+rootViewLayout.addWidget(chatOptionsView);
+rootViewLayout.addWidget(macroBoxView);
+
+const rootStyleSheet = `
+  #rootView {
+    padding: 5em;
+    height: 800em;
+    width: 600em;
+  }
+  #chatOptionsView {
+    width: 600em;
+  }
+  #macroBoxView {
+    width: 600em;
+    flex-direction: row;
+  }
+  #chatCheckBoxView {
+    padding: 10em;
+    width: 600em;
+    border: 0.2em ridge #B2BEB5;
+    margin-right: 0.2em;
+    margin-left: 0.2em;
+    margin-bottom: 0.2em;
+    flex-direction: row;
+  }
+  #chatSelectLabel {
+    width: 400em;
+    padding: 0.2em;
+    text-align: center;
+    font-size: 2rem;
+  }
+  #mainChatCheckBoxView, #lsChatCheckBoxView, #cwlsChatCheckBoxView {
+    width: 200em;
+    padding: 2em;
+    margin-bottom: 2em;
+    flex-direction: column;
+  }
+  #inputTextEdit, #outputTextEdit {
+    margin-right: 0.2em;
+    margin-left: 0.2em;
+    width: 300em;
+  }
+  #generateButton, #copyButton {
+    margin-right: 1em;
+    margin-left: 1em;
+    margin-top: 0.1em;
+    margin-bottom: 0.1em;
+  }
+`;
+
+rootView.setStyleSheet(rootStyleSheet);
+
+win.setCentralWidget(rootView);
 win.show();
 global.win = win;
