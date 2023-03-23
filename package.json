@@ -1,0 +1,24 @@
+{
+  "name": "ffxiv-relay-macro-gen",
+  "version": "1.0.0",
+  "description": "Helper to generate relay macros quickly",
+  "main": "index.js",
+  "repository": "https://github.com/jessbrent/ffxiv-relay-macro-gen.git",
+  "author": "jbrent <jessmightcode@gmail.com>",
+  "license": "AGPL-3.0-only",
+  "scripts": {
+    "packexe": "nodegui-packer --pack dist",
+    "build": "webpack  --mode production",
+    "start": "webpack && qode ./dist/index.js",
+    "debug": "webpack && qode --inspect ./dist/index.js"
+  },
+  "dependencies": {
+    "@nodegui/nodegui": "^0.59.0",
+    "native-addon-loader": "^2.0.1"
+  },
+  "devDependencies": {
+    "@nodegui/packer": "^1.5.0",
+    "webpack": "^5.76.3",
+    "webpack-cli": "^5.0.1"
+  }
+}
