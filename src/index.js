@@ -12,11 +12,17 @@ const chatOptions = [
     { short: 'l3', label: 'Linkshell 3', checked: false },
     { short: 'l4', label: 'Linkshell 4', checked: false },
     { short: 'l5', label: 'Linkshell 5', checked: false },
+    { short: 'l6', label: 'Linkshell 6', checked: false },
+    { short: 'l7', label: 'Linkshell 7', checked: false },
+    { short: 'l8', label: 'Linkshell 8', checked: false },
     { short: 'cwl1', label: 'Cross-world Linkshell 1', checked: false },
     { short: 'cwl2', label: 'Cross-world Linkshell 2', checked: false },
     { short: 'cwl3', label: 'Cross-world Linkshell 3', checked: false },
     { short: 'cwl4', label: 'Cross-world Linkshell 4', checked: false },
     { short: 'cwl5', label: 'Cross-world Linkshell 5', checked: false },
+    { short: 'cwl6', label: 'Cross-world Linkshell 6', checked: false },
+    { short: 'cwl7', label: 'Cross-world Linkshell 7', checked: false },
+    { short: 'cwl8', label: 'Cross-world Linkshell 8', checked: false },
 ];
 
 const win = new QMainWindow();
