@@ -1,4 +1,4 @@
-const { FlexLayout, QMainWindow, QCheckBox, QGroupBox, QTextEdit, QPushButton, QClipboard, QApplication, QClipboardMode, QWidget, QLabel } = require('@nodegui/nodegui');
+const { FlexLayout, QMainWindow, QCheckBox, QTextEdit, QPushButton, QApplication, QClipboardMode, QWidget, QLabel } = require('@nodegui/nodegui');
 
 
 const chatOptions = [
@@ -50,10 +50,12 @@ const mainChatCheckBoxView = new QWidget();
 const mainChatCheckBoxViewLayout = new FlexLayout();
 mainChatCheckBoxView.setObjectName('mainChatCheckBoxView');
 mainChatCheckBoxView.setLayout(mainChatCheckBoxViewLayout);
+
 const lsChatCheckBoxView = new QWidget();
 const lsChatCheckBoxViewLayout = new FlexLayout();
 lsChatCheckBoxView.setObjectName('lsChatCheckBoxView');
 lsChatCheckBoxView.setLayout(lsChatCheckBoxViewLayout);
+
 const cwlsChatCheckBoxView = new QWidget();
 const cwlsChatCheckBoxViewLayout = new FlexLayout();
 cwlsChatCheckBoxView.setObjectName('cwlsChatCheckBoxView');
