@@ -1,3 +1,4 @@
 node_modules
 dist
 yarn-error.log
+deploy/win32/build/ffxiv-relay-macro-gen/
