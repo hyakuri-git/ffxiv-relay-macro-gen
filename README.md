@@ -5,6 +5,6 @@ Tool to help generate relay macros quickly so you don't need to struggle with th
 
 To use: Download the [latest build](deploy/win32/build/ffxiv-relay-macro-gen.zip) here, unzip it, and run `app.exe`
 
-![main](https://user-images.githubusercontent.com/19272774/227573820-3c9f7579-6966-46ac-86f3-a6ba75d157fd.PNG)
 
-![generated](https://user-images.githubusercontent.com/19272774/227574184-99a07247-34ba-4f32-a600-dd5f77d94f3c.PNG)
+![main](https://user-images.githubusercontent.com/19272774/230827499-34a5cb91-6afa-449f-b406-bef64a0025f1.PNG)
+![generated](https://user-images.githubusercontent.com/19272774/230827500-e66644dd-5329-47e9-9a1c-3dd034755b5f.PNG)
