@@ -1,4 +1,4 @@
-const { QCheckBox, QTextEdit, QPushButton } = require('@nodegui/nodegui');
+const { QApplication, QCheckBox, QClipboardMode, QTextEdit, QPushButton } = require('@nodegui/nodegui');
 const { createWidget } = require('../utils');
 const { settings } = require('../settings');
 const { mainChatCheckBoxView, lsChatCheckBoxView, cwlsChatCheckBoxView } = require('./chatBox');
@@ -24,7 +24,7 @@ outputTextEdit.setAcceptRichText(true);
 outputTextEdit.setReadOnly(true);
 
 const copyButton = new QPushButton();
-copyButton.setObjectName('generateButton');
+copyButton.setObjectName('copyButton');
 copyButton.setText('Copy Macro');
 
 generateButton.addEventListener('clicked', () => {

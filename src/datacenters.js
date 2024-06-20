@@ -17,7 +17,7 @@ const datacenters = [
   {
     name: 'Dynamis',
     locale: 'NA',
-    worlds: [ 'Halicarnassus', 'Maduin', 'Marilith', 'Seraph', ],
+    worlds: [ 'Cuchulainn', 'Golem', 'Halicarnassus', 'Kraken', 'Maduin', 'Marilith', 'Rafflesia', 'Seraph', ],
   },
   {
     name: 'Elemental',
@@ -53,6 +53,11 @@ const datacenters = [
     name: 'Primal',
     locale: 'NA',
     worlds: [ 'Behemoth', 'Excalibur', 'Exodus', 'Famfrit', 'Hyperion', 'Lamia', 'Leviathan', 'Ultros' ],
+  },
+  {
+    name: 'Shadow',
+    locale: 'EU',
+    worlds: [ 'Innocence', 'Pixie', 'Titania', 'Tycoon' ],
   },
 ];
 
